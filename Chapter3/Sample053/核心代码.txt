@@ -1,0 +1,52 @@
+本例重点是用GDI在文本框上进行绘图
+void CDrawStaticDemoDlg::OnStaticDraw() 
+{
+	// TODO: Add your control notification handler code here
+    CWnd* pWnd=GetDlgItem(IDC_STATICDRAW);
+    CDC* pDC=pWnd->GetDC();
+    pWnd->Invalidate();
+    pWnd->UpdateWindow();
+    pDC->Rectangle(0,0,200,200);
+    //创建画笔对象**************画X和Y轴
+    CPen* pPenRed=new CPen;
+    pPenRed->CreatePen(PS_SOLID,2,RGB(255,0,0));
+    CGdiObject* pOldPen=pDC->SelectObject(pPenRed);
+    pDC->MoveTo(10,10);
+    pDC->LineTo(10,180);
+    pDC->LineTo(180,180);
+    //写X轴刻值
+    CString str;
+    str.Format("0");
+    pDC->SetTextColor(RGB(0,255,0));
+    pDC->TextOut(10,183,str);
+    str.Format("50");
+    pDC->TextOut(60,183,str);
+    str.Format("100");
+    pDC->TextOut(110,183,str);
+    str.Format("150");
+    pDC->TextOut(160,183,str);
+    //写X轴刻度线
+    for(int  i=0;i<156;i+=5)
+    {
+        if((i&1)==0)
+        {//10的倍数
+            pDC->MoveTo(i+10,180);
+            pDC->LineTo(i+10,184);
+        }
+        else
+        {
+            pDC->MoveTo(i+10,180);
+            pDC->LineTo(i+10,182);
+
+        }
+    }
+	//使用蓝色画笔绘制椭圆
+	CPen* pPenBlue=new CPen;
+    pPenBlue->CreatePen(PS_SOLID,2,RGB(0,0,255));
+	pDC->SelectObject(pPenBlue);
+	pDC->Ellipse(50,50,140,120);
+    pDC->SelectObject(pOldPen);//载入原画笔
+    //删除新的画笔
+    delete pPenRed;
+	delete pPenBlue;
+}

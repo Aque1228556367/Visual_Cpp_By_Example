@@ -1,0 +1,34 @@
+1.显示图标和图片的控件均是Text控件，想让其加载图片或图标，
+必须先将其转换为CStatic，并设置静态控件的样式
+CStatic::ModifyStyle()
+
+void CStaticImageDlg::OnShowicon() 
+{
+	CStatic *pStatic=(CStatic *)GetDlgItem(IDC_STATICIMAGE);//获得指向静态控件的指针
+	//加载图标
+	HICON hIcon=AfxGetApp()->LoadIcon(IDI_ICON1);
+	//设置静态控件的样式，使其可以使用图标，并试图标显示使居中
+	pStatic->ModifyStyle(0xF,SS_ICON|SS_CENTERIMAGE);
+	//设置静态控件图标
+	pStatic->SetIcon(hIcon);
+	
+}
+
+void CStaticImageDlg::OnShowbitmap() 
+{
+	// TODO: Add your control notification handler code here
+	//获得指向静态控件的指针
+	CStatic *pStatic=(CStatic *)GetDlgItem(IDC_STATICIMAGE2);
+	//获得位图句柄
+	HBITMAP hBitmap=::LoadBitmap(AfxGetApp()->m_hInstance, MAKEINTRESOURCE(IDB_BITMAP1));
+	//设置静态控件的样式，使其可以使用位图，并试位标显示使居中
+	pStatic->ModifyStyle(0xF,SS_BITMAP|SS_CENTERIMAGE);
+	//设置静态控件显示位图
+	pStatic->SetBitmap(hBitmap);	
+}
+
+2.注意获得位图句柄和图标句柄的方法：
+//获得位图句柄
+HBITMAP hBitmap=::LoadBitmap(AfxGetApp()->m_hInstance, MAKEINTRESOURCE(IDB_BITMAP1));
+//加载图标
+HICON hIcon=AfxGetApp()->LoadIcon(IDI_ICON1);

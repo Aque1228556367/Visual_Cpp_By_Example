@@ -1,0 +1,44 @@
+1.使用RichEdit注意事项：
+在文档类 InitInstance() 函数内手动初始化 RichEdit
+AfxEnableControlContainer();
+AfxInitRichEdit();//初始化RichEdit控件
+
+2.三个Radio控件实现三选一的注意事项：
+(1)三个控件ID号必须相连
+(2)第一个radio控件的Group选项为TRUE，其它的均为FALSE
+(3)添加radio控件变量，只添加第一个控件的
+   DDX_Radio(pDX, IDC_LETT, m_radio);
+
+3.设置粗体、斜体、下划线：
+CHARFORMAT cf;//结构体
+m_RichSample.GetSelectionCharFormat (cf);
+
+说明：
+(1)CHARFORMAT structure of MFC是
+Microsoft Foundation Classes (MFC)即微软类库中字符格式类
+的结构。结构中不可或缺的两个成员是dwMask和 dwEffects，
+前者是定义或设置字符的字体、颜色、粗体、斜体、下划线等
+属性值，后者则是相关属性的效果。
+
+cf.dwMask |= CFM_BOLD;
+cf.dwEffects ^= CFE_BOLD;
+
+(2)dwmask与dweffects的区别：
+dweffects记录了字体的部分信息，如粗体，但是这些信息是否有效
+却是由swmask决定的，请看下面的解释，如：
+CFM_BOLD The CFE_BOLD value of the dwEffects member 
+is valid.
+也就是说只有当dwmask&cfm_bold!=0时才表明字体加粗，
+这也是为什么在最后help里面会强调关闭字体作用时，
+设置dwmask的值，而不是dweffects（来自百度百科） 
+
+//用刚才重新设置的cf作参数重新设置字体
+m_RichSample.SetSelectionCharFormat (cf);
+
+4.设置居中等对其格式
+核心结构为：PARAFORMAT
+
+PARAFORMAT pf;
+m_RichSample.GetParaFormat(pf);
+没有中文文档，具体参数详见：
+http://msdn.microsoft.com/zh-cn/library/vstudio/bb787940.aspx

@@ -1,0 +1,15 @@
+1.主要是学习使用 CListBox 的使用
+int CListBox::GetSelCount()——获取外借列表框中选中的记录数
+void CListBox::GetSelItems([in]选中的记录数, [out]选中的选项序号)
+void CListBox::GetText([in]选项序号, [out]当前序号对应Text：CString)
+DWORD CListBox::GetItemData([in]选项序号)
+int CListBox::AddString([in]添加到ListBox的文字：LPCTSTR );
+返回在ListBox插入的位置（序号）
+int CListBox::SetItemData([in]插入的位置/序号, [in]该序号的数据值：DWORD);
+注：SetItemData：是将各项的序号和自己需要的内容相关联,
+这个内容是自己定义的任何类型的东西,如果是一个结构体或是
+一个类对象,则要将其转换为指针类型即可.
+
+2.注意点击 ListBox 选项产生的消息
+ON_LBN_SELCHANGE(IDC_LIST1, OnSelchangeList1)
+ON_LBN_SELCHANGE(IDC_LIST2, OnSelchangeList2)

@@ -1,0 +1,5 @@
+1.三个Radio控件实现三选一的注意事项：
+(1)三个控件ID号必须相连
+(2)第一个radio控件的Group选项为TRUE，其它的均为FALSE
+(3)添加radio控件变量，只添加第一个控件的
+   DDX_Radio(pDX, IDC_RADIO1, m_radio);

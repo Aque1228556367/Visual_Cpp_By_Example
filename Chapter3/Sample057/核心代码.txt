@@ -1,0 +1,18 @@
+1.FindFirstFile()与 WIN32_FIND_DATA
+
+WIN32_FIND_DATA fd;
+HANDLE hFind;
+if ((hFind = FindFirstFile (_T("*.*"), &fd)) == NULL)
+	return FALSE;
+do
+{
+	if (fd.cFileName[0] == '.')
+		continue;
+	m_ctlDraglist.AddString (fd.cFileName);
+	m_ctlChecklist.AddString (fd.cFileName);
+}
+while (FindNextFile (hFind, &fd));
+
+2.注意两种 ListBox 类型：
+CDragListBox	m_ctlDraglist;
+CCheckListBox	m_ctlChecklist;

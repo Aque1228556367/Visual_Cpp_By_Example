@@ -1,0 +1,9 @@
+1.使多行编辑框上无法产生焦点：把焦点重新置回上一个控件
+void CReadEdit::OnSetFocus(CWnd* pOldWnd) 
+{
+	pOldWnd->SetFocus();//将输入焦点返回原窗口	
+//	CEdit::OnSetFocus(pOldWnd);//不执行默认的处理函数	
+}
+2.对CEdit类进行派生，使其可以实现自动换行的功能。
+  使原来功能单一不能换行的编辑框改为自动换行的编辑框
+★学习到对控件进行扩展的办法：对控件类进行重写
